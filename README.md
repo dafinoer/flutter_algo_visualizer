@@ -2,6 +2,13 @@
 
 A new Flutter project.
 
+## Algorithm
+- [x] Bubble Sort
+- [ ] Insert Sort
+- [ ] Quick Sort
+- [ ] Selection Sort
+- [ ] Merge Sort
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
