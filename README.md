@@ -14,6 +14,10 @@ A new Flutter project.
 - [ ] Selection Sort
 - [ ] Merge Sort
 
+## Algorithm Search
+- [ ] Binary Search
+- [ ] Binary Search Tree
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
