@@ -2,7 +2,12 @@
 
 A new Flutter project.
 
-## Algorithm
+# Platform
+- [x] Web
+- [ ] Android
+- [ ] IOS
+
+## Algorithm Sorting
 - [x] Bubble Sort
 - [ ] Insert Sort
 - [ ] Quick Sort
