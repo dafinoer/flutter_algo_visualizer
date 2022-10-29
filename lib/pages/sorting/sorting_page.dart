@@ -2,6 +2,7 @@ import 'package:algovisualizer/components/injector.dart';
 import 'package:algovisualizer/domain/repository/reactive_repository_impl.dart';
 import 'package:algovisualizer/domain/usecase/bubble_sort_usecase.dart';
 import 'package:algovisualizer/domain/usecase/get_list_data_visualizer_usecase.dart';
+import 'package:algovisualizer/domain/usecase/selection_sort_usecase.dart';
 import 'package:algovisualizer/pages/sorting/components/go_button.dart';
 import 'package:algovisualizer/pages/sorting/components/reset_button.dart';
 import 'package:algovisualizer/presentation/sorting/sorting_form.dart';
@@ -35,14 +36,15 @@ class _SortingPageState extends State<SortingPage> {
     _sortingStore = SortingStore(
         getList,
         container.resolve<ReactiveRepositoryImpl>(),
-        container.resolve<BubbleSortUseCase>());
+        container.resolve<BubbleSortUseCase>(),
+        container.resolve<SelectionSortUsecase>());
     _sortingForm = SortingForm();
     _sortingStore.onInitData();
     reaction((_) => _sortingForm.totalItem,
         (_) => _sortingStore.setDataItems(_sortingForm.totalItem));
     reaction((_) => _sortingStore.isRunning,
         (value) => _sortingForm.onDisableButton(value));
-    reaction((p0) => _sortingForm.totalItem,
+    reaction((p0) => _sortingForm.thresHoleTime,
         (time) => _sortingStore.onSetThresHoleTime(time));
   }
 
