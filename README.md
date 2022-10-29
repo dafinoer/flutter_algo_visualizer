@@ -11,7 +11,7 @@ A new Flutter project.
 - [x] Bubble Sort
 - [ ] Insert Sort
 - [ ] Quick Sort
-- [ ] Selection Sort
+- [x] Selection Sort
 - [ ] Merge Sort
 
 ## Algorithm Search
