@@ -2,6 +2,7 @@ import 'package:algovisualizer/components/injector.dart';
 import 'package:algovisualizer/domain/repository/reactive_repository_impl.dart';
 import 'package:algovisualizer/domain/usecase/bubble_sort_usecase.dart';
 import 'package:algovisualizer/domain/usecase/get_list_data_visualizer_usecase.dart';
+import 'package:algovisualizer/domain/usecase/insert_sort_usecase.dart';
 import 'package:algovisualizer/domain/usecase/selection_sort_usecase.dart';
 import 'package:algovisualizer/pages/sorting/components/go_button.dart';
 import 'package:algovisualizer/pages/sorting/components/reset_button.dart';
@@ -34,10 +35,12 @@ class _SortingPageState extends State<SortingPage> {
     super.initState();
     final getList = container.resolve<GetListDataVisualizerUseCase>();
     _sortingStore = SortingStore(
-        getList,
-        container.resolve<ReactiveRepositoryImpl>(),
-        container.resolve<BubbleSortUseCase>(),
-        container.resolve<SelectionSortUsecase>());
+      getList,
+      container.resolve<ReactiveRepositoryImpl>(),
+      container.resolve<BubbleSortUseCase>(),
+      container.resolve<SelectionSortUsecase>(),
+      container.resolve<InsertSortUsecase>()
+    );
     _sortingForm = SortingForm();
     _sortingStore.onInitData();
     reaction((_) => _sortingForm.totalItem,
