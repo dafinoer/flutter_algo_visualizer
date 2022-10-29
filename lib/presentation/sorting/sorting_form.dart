@@ -11,7 +11,7 @@ abstract class _SortingForm with Store {
   SortingType? _sortingType;
 
   @observable
-  int _thresHoleTime = 400;
+  int _thresHoleTime = 300;
 
   @observable
   int _totalMaxItem = 10;
