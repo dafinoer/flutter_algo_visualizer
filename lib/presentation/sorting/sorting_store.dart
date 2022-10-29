@@ -16,6 +16,8 @@ abstract class _SortingStore with Store {
   final GetListDataVisualizerUseCase getListDataVisualizer;
   final ReactiveRepository<Visualizer> reactiveRepository;
   final SortingUseCase bubbleSortUseCase;
+  final SortingUseCase selectionSortUseCase;
+
   StreamSubscription<Visualizer>? _streamSubscription;
   Set<double>? _indexColorValue;
 
@@ -23,6 +25,7 @@ abstract class _SortingStore with Store {
     this.getListDataVisualizer,
     this.reactiveRepository,
     this.bubbleSortUseCase,
+    this.selectionSortUseCase,
   ) {
     _onListen();
   }
@@ -34,8 +37,7 @@ abstract class _SortingStore with Store {
           valueActiveColors != null ? Set.of(valueActiveColors) : null;
       debugPrint(event.items.toString());
       _visualData = List.of(event.items.map((e) => e.toDouble()).toList());
-      _isRunning =
-          valueActiveColors != null || (valueActiveColors?.isNotEmpty ?? false);
+      _isRunning = valueActiveColors != null;
     });
   }
 
@@ -67,7 +69,10 @@ abstract class _SortingStore with Store {
     final toListInt = _visualData.map((e) => e.toInt()).toList(growable: false);
     if (type == SortingType.bubble) {
       _isRunning = true;
-      bubbleSortUseCase.call(toListInt);
+      bubbleSortUseCase.sorting(toListInt);
+    } else if (type == SortingType.selection) {
+      _isRunning = true;
+      selectionSortUseCase.sorting(toListInt);
     }
   }
 
