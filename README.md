@@ -7,7 +7,7 @@ A new Flutter project.
 - [ ] Web - Mobile UI
 - [ ] Android
 
-## Sorting
+## Brute Force
 - [x] Bubble Sort
 - [ ] Insert Sort
 - [x] Selection Sort
