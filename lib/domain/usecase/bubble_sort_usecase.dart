@@ -8,7 +8,7 @@ class BubbleSortUseCase implements SortingUseCase {
   BubbleSortUseCase(this.reactiveRepository);
 
   @override
-  void call(List<int> items) {
+  List<int> sorting(List<int> items) {
     bool isNeedSwap = true;
     while (isNeedSwap) {
       bool isHaveSwap = false;
@@ -30,5 +30,6 @@ class BubbleSortUseCase implements SortingUseCase {
       items: items,
       indexActiveColor: null,
     ));
+    return items;
   }
 }
