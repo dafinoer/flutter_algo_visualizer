@@ -1,6 +1,7 @@
 import 'package:algovisualizer/domain/repository/reactive_repository_impl.dart';
 import 'package:algovisualizer/domain/usecase/bubble_sort_usecase.dart';
 import 'package:algovisualizer/domain/usecase/get_list_data_visualizer_usecase.dart';
+import 'package:algovisualizer/domain/usecase/selection_sort_usecase.dart';
 import 'package:kiwi/kiwi.dart';
 
 import '../data/data_source/local_data_source.dart';
@@ -23,4 +24,6 @@ void onRegisterInjector() {
       container.resolve<VisualizerRepositoryImpl>()));
   container.registerInstance<BubbleSortUseCase>(
       BubbleSortUseCase(container.resolve<ReactiveRepositoryImpl>()));
+  container.registerInstance(
+      SelectionSortUsecase(container.resolve<ReactiveRepositoryImpl>()));
 }
