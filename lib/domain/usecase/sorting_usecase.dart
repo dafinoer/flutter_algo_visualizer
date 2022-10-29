@@ -1,3 +1,3 @@
 abstract class SortingUseCase {
-  void call(List<int> items);
+  List<int> sorting(List<int> items);
 }
