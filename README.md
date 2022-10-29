@@ -12,7 +12,7 @@ A new Flutter project.
 - [ ] Insert Sort
 - [x] Selection Sort
 
-## Divide % Conquer
+## Divide & Conquer
 - [ ] Merge Sort
 - [ ] Quick Sort
 
