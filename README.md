@@ -9,7 +9,7 @@ A new Flutter project.
 
 ## Brute Force
 - [x] Bubble Sort
-- [ ] Insert Sort
+- [x] Insert Sort
 - [x] Selection Sort
 
 ## Divide & Conquer
