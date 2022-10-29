@@ -3,20 +3,21 @@
 A new Flutter project.
 
 # Platform
-- [x] Web
+- [x] Web - Desktop UI
+- [ ] Web - Mobile UI
 - [ ] Android
-- [ ] IOS
 
-## Algorithm Sorting
+## Sorting
 - [x] Bubble Sort
 - [ ] Insert Sort
-- [ ] Quick Sort
 - [x] Selection Sort
-- [ ] Merge Sort
 
-## Algorithm Search
+## Divide % Conquer
+- [ ] Merge Sort
+- [ ] Quick Sort
+
+## Branch & Bound
 - [ ] Binary Search
-- [ ] Binary Search Tree
 
 ## Getting Started
 
