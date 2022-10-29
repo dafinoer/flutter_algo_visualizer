@@ -17,6 +17,7 @@ abstract class _SortingStore with Store {
   final ReactiveRepository<Visualizer> reactiveRepository;
   final SortingUseCase bubbleSortUseCase;
   final SortingUseCase selectionSortUseCase;
+  final SortingUseCase insertionSortUseCase;
 
   StreamSubscription<Visualizer>? _streamSubscription;
   Set<double>? _indexColorValue;
@@ -26,6 +27,7 @@ abstract class _SortingStore with Store {
     this.reactiveRepository,
     this.bubbleSortUseCase,
     this.selectionSortUseCase,
+    this.insertionSortUseCase,
   ) {
     _onListen();
   }
@@ -73,6 +75,9 @@ abstract class _SortingStore with Store {
     } else if (type == SortingType.selection) {
       _isRunning = true;
       selectionSortUseCase.sorting(toListInt);
+    } else if (type == SortingType.insert) {
+      _isRunning = true;
+      insertionSortUseCase.sorting(toListInt);
     }
   }
 
