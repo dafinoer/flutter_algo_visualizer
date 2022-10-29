@@ -17,9 +17,17 @@ class AlgoritmButton extends StatelessWidget {
           hint: const Text('Algorithm'),
           items: const [
             DropdownMenuItem(
-                value: SortingType.bubble, child: Text('Bubble Sort')),
+              value: SortingType.bubble,
+              child: Text('Bubble Sort'),
+            ),
             DropdownMenuItem(
-                value: SortingType.selection, child: Text('Selection Sort'))
+              value: SortingType.selection,
+              child: Text('Selection Sort'),
+            ),
+            DropdownMenuItem(
+              value: SortingType.insert,
+              child: Text('Insertion Sort'),
+            ),
           ],
           onChanged: sortingForm.isDisableActionForm
               ? null
