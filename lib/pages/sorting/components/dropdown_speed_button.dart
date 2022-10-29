@@ -10,15 +10,14 @@ class DropdownSpeedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final sortingForm = context.read<SortingForm>();
     return Observer(
-      warnWhenNoObservables: true,
       builder: (context) {
         return DropdownButton(
           value: sortingForm.thresHoleTime,
           hint: const Text('Speed'),
           items: const [
-            DropdownMenuItem(value: 700, child: Text('Slow')),
-            DropdownMenuItem(value: 400, child: Text('Medium')),
-            DropdownMenuItem(value: 200, child: Text('Fast'))
+            DropdownMenuItem(value: 500, child: Text('Slow')),
+            DropdownMenuItem(value: 300, child: Text('Medium')),
+            DropdownMenuItem(value: 100, child: Text('Fast'))
           ],
           onChanged: sortingForm.isDisableActionForm
               ? null
