@@ -14,14 +14,16 @@ class SelectionSortUsecase implements SortingUseCase {
       int indexSmall = indexY;
 
       for (int indexZ = indexY + 1; indexZ < items.length; indexZ++) {
-        final indexColors = Set.of({items[indexZ].toDouble(), items[indexY].toDouble()});
+        final colors = {items[indexZ].toDouble(), items[indexY].toDouble()};
+        final indexColors = Set.of(colors);
         final int valueIndexZ = items[indexZ];
+        final newListItems = List.of(items,growable: false);
         if (valueIndexZ < value) {
           value = valueIndexZ;
           indexSmall = indexZ;
         }
         reactiveRepository.onSetEvent(
-            Visualizer(items: List.of(items), indexActiveColor: indexColors));
+            Visualizer(items: newListItems, indexActiveColor: indexColors));
       }
       int temp = items[indexY];
       items[indexY] = value;
