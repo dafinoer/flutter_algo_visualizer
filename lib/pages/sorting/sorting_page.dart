@@ -3,6 +3,7 @@ import 'package:algovisualizer/domain/repository/reactive_repository_impl.dart';
 import 'package:algovisualizer/domain/usecase/bubble_sort_usecase.dart';
 import 'package:algovisualizer/domain/usecase/get_list_data_visualizer_usecase.dart';
 import 'package:algovisualizer/domain/usecase/insert_sort_usecase.dart';
+import 'package:algovisualizer/domain/usecase/merge_sort_usecase.dart';
 import 'package:algovisualizer/domain/usecase/selection_sort_usecase.dart';
 import 'package:algovisualizer/pages/sorting/components/go_button.dart';
 import 'package:algovisualizer/pages/sorting/components/reset_button.dart';
@@ -39,7 +40,8 @@ class _SortingPageState extends State<SortingPage> {
       container.resolve<ReactiveRepositoryImpl>(),
       container.resolve<BubbleSortUseCase>(),
       container.resolve<SelectionSortUsecase>(),
-      container.resolve<InsertSortUsecase>()
+      container.resolve<InsertSortUsecase>(),
+      container.resolve<MergeSortUseCase>()
     );
     _sortingForm = SortingForm();
     _sortingStore.onInitData();
@@ -89,18 +91,16 @@ class _SortingPageState extends State<SortingPage> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
             child: Observer(
-              builder: (context) {
-                return ChartWidget(
-                  values: _sortingStore.listVisualizer,
-                  chartColorByValue: (defaultColor, value, [min]) {
-                    final valueColor = _sortingStore.indexActiveColor;
-                    if (valueColor != null && valueColor.contains(value)) {
-                      return Colors.yellow;
-                    }
-                    return Colors.blueAccent;
-                  },
-                );
-              },
+              builder: (context) => ChartWidget(
+                values: _sortingStore.listVisualizer,
+                chartColorByValue: (defaultColor, value, [min]) {
+                  final valueColor = _sortingStore.indexActiveColor;
+                  if (valueColor != null && valueColor.contains(value)) {
+                    return Colors.yellow;
+                  }
+                  return Colors.blueAccent;
+                },
+              ),
             ),
           ),
         ],
