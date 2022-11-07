@@ -28,6 +28,10 @@ class AlgoritmButton extends StatelessWidget {
               value: SortingType.insert,
               child: Text('Insertion Sort'),
             ),
+            DropdownMenuItem(
+              value: SortingType.merge,
+              child: Text('Merge Sort'),
+            ),
           ],
           onChanged: sortingForm.isDisableActionForm
               ? null
