@@ -5,10 +5,16 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [Text('welkome')],
+      children: [
+        Text(
+          'Welcome to Flutter Algo Visualizer',
+          style: theme.textTheme.headline6,
+        )
+      ],
     );
   }
 }
