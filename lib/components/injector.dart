@@ -2,6 +2,7 @@ import 'package:algovisualizer/domain/repository/reactive_repository_impl.dart';
 import 'package:algovisualizer/domain/usecase/bubble_sort_usecase.dart';
 import 'package:algovisualizer/domain/usecase/get_list_data_visualizer_usecase.dart';
 import 'package:algovisualizer/domain/usecase/insert_sort_usecase.dart';
+import 'package:algovisualizer/domain/usecase/merge_sort_usecase.dart';
 import 'package:algovisualizer/domain/usecase/selection_sort_usecase.dart';
 import 'package:kiwi/kiwi.dart';
 
@@ -30,4 +31,6 @@ void onRegisterInjector() {
   container.registerInstance<InsertSortUsecase>(
     InsertSortUsecase(container.resolve<ReactiveRepositoryImpl>()),
   );
+  container.registerInstance<MergeSortUseCase>(
+      MergeSortUseCase(container.resolve<ReactiveRepositoryImpl>()));
 }
