@@ -13,7 +13,7 @@ A new Flutter project.
 - [x] Selection Sort
 
 ## Divide & Conquer
-- [ ] Merge Sort
+- [x] Merge Sort
 - [ ] Quick Sort
 
 ## Branch & Bound
