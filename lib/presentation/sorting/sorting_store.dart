@@ -1,6 +1,5 @@
 import 'package:algovisualizer/domain/usecase/sorting_usecase.dart';
 import 'package:algovisualizer/presentation/sorting/sorting_form.dart';
-import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'dart:async';
 
@@ -18,6 +17,7 @@ abstract class _SortingStore with Store {
   final SortingUseCase bubbleSortUseCase;
   final SortingUseCase selectionSortUseCase;
   final SortingUseCase insertionSortUseCase;
+  final DivideAndConquer mergeSortUseCase;
 
   StreamSubscription<Visualizer>? _streamSubscription;
   Set<double>? _indexColorValue;
@@ -28,18 +28,16 @@ abstract class _SortingStore with Store {
     this.bubbleSortUseCase,
     this.selectionSortUseCase,
     this.insertionSortUseCase,
+    this.mergeSortUseCase,
   ) {
     _onListen();
   }
 
   void _onListen() {
     _streamSubscription = reactiveRepository.watch().listen((event) {
-      final valueActiveColors = event.indexActiveColor;
-      _indexColorValue =
-          valueActiveColors != null ? Set.of(valueActiveColors) : null;
-      debugPrint(event.items.toString());
+      _indexColorValue = event.indexActiveColor;
       _visualData = List.of(event.items.map((e) => e.toDouble()).toList());
-      _isRunning = valueActiveColors != null;
+      _isRunning = _indexColorValue != null;
     });
   }
 
@@ -78,6 +76,10 @@ abstract class _SortingStore with Store {
     } else if (type == SortingType.insert) {
       _isRunning = true;
       insertionSortUseCase.sorting(toListInt);
+    } else if (type == SortingType.merge) {
+      _isRunning = true;
+      mergeSortUseCase.setDefaultItems(toListInt);
+      mergeSortUseCase.sorting(toListInt);
     }
   }
 
