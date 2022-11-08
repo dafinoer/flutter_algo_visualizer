@@ -22,7 +22,7 @@ void main() {
       late MockReactiveRepository mockReactiveRepository;
       late MergeSortUseCase mergeSortUseCase;
 
-      final unsortList = [1, 20, 3, 90, 0];
+      final unsortList = [1, 20, 3, 90, 80, 20];
 
       setUp(() {
         mockReactiveRepository = MockReactiveRepository();
@@ -49,7 +49,6 @@ void main() {
 
       test('Merge Sort output test', () {
         final result = mergeSortUseCase.sorting(unsortList);
-        print(result);
       });
 
       tearDownAll(() {
