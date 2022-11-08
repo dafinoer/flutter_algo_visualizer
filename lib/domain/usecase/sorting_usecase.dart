@@ -5,5 +5,5 @@ abstract class SortingUseCase {
 abstract class DivideAndConquer implements SortingUseCase {
   void setDefaultItems(List<int> items);
 
-  List<int> items();
+  List<int> get values;
 }
