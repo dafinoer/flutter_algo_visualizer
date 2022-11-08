@@ -65,7 +65,7 @@ class MergeSortUseCase implements DivideAndConquer {
   }
 
   @override
-  List<int> items() => _items;
+  List<int> get values => _items.toList(growable: false);
 
   @override
   void setDefaultItems(List<int> items) {
