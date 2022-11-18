@@ -48,7 +48,10 @@ void main() {
       });
 
       test('Merge Sort output test', () {
-        final result = mergeSortUseCase.sorting(unsortList);
+        final testList = [30, 1, 10, 2, 0, 3, 80, 5];
+        mergeSortUseCase.setDefaultItems(testList);
+        final result = mergeSortUseCase.sorting(testList);
+        expect(result, [0, 1, 2, 3, 5, 10, 30, 80]);
       });
 
       tearDownAll(() {
