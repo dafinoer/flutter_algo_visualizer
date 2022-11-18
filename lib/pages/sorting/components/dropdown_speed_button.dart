@@ -9,26 +9,48 @@ class DropdownSpeedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sortingForm = context.read<SortingForm>();
-    return Observer(
-      builder: (context) {
-        return DropdownButton(
-          value: sortingForm.thresHoleTime,
-          hint: const Text('Speed'),
-          items: const [
-            DropdownMenuItem(value: 500, child: Text('Slow')),
-            DropdownMenuItem(value: 300, child: Text('Medium')),
-            DropdownMenuItem(value: 100, child: Text('Fast'))
-          ],
-          onChanged: sortingForm.isDisableActionForm
-              ? null
-              : (int? value) {
-                  final itemValue = value;
-                  if (itemValue != null) {
-                    sortingForm.setThresHoleTime(itemValue);
-                  }
-                },
-        );
-      },
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          border: Border.all(width: 0.5, color: Colors.grey)),
+      child: Observer(
+        builder: (context) {
+          return DropdownButton(
+            borderRadius: BorderRadius.circular(12.0),
+            value: sortingForm.thresHoleTime,
+            underline: const SizedBox.shrink(),
+            isExpanded: true,
+            items: const [
+              DropdownMenuItem(
+                  value: 500,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('Slow'),
+                  )),
+              DropdownMenuItem(
+                  value: 300,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('Medium'),
+                  )),
+              DropdownMenuItem(
+                  value: 100,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text('Fast'),
+                  ))
+            ],
+            onChanged: sortingForm.isDisableActionForm
+                ? null
+                : (int? value) {
+                    final itemValue = value;
+                    if (itemValue != null) {
+                      sortingForm.setThresHoleTime(itemValue);
+                    }
+                  },
+          );
+        },
+      ),
     );
   }
 }
