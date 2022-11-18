@@ -26,7 +26,10 @@ class GoButton extends StatelessWidget {
                       sortingStore.onProcessAlgorithm(sortingType);
                     }
                   },
-            child: const Text('Go'),
+            child: const Padding(
+              child: Text('Go'),
+              padding: EdgeInsets.all(16.0),
+            ),
           );
         },
       ),
