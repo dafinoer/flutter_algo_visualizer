@@ -10,37 +10,59 @@ class AlgoritmButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final sortingForm = context.read<SortingForm>();
 
-    return Observer(
-      builder: (context) {
-        return DropdownButton(
-          value: sortingForm.sortingType,
-          hint: const Text('Algorithm'),
-          items: const [
-            DropdownMenuItem(
-              value: SortingType.bubble,
-              child: Text('Bubble Sort'),
-            ),
-            DropdownMenuItem(
-              value: SortingType.selection,
-              child: Text('Selection Sort'),
-            ),
-            DropdownMenuItem(
-              value: SortingType.insert,
-              child: Text('Insertion Sort'),
-            ),
-            DropdownMenuItem(
-              value: SortingType.merge,
-              child: Text('Merge Sort'),
-            ),
-          ],
-          onChanged: sortingForm.isDisableActionForm
-              ? null
-              : (SortingType? value) {
-                  final typeValue = value;
-                  if (typeValue != null) sortingForm.onSetSorting(typeValue);
-                },
-        );
-      },
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          border: Border.all(width: 0.5, color: Colors.grey)),
+      child: Observer(
+        builder: (context) {
+          return DropdownButton(
+            borderRadius: BorderRadius.circular(12.0),
+            value: sortingForm.sortingType,
+            hint: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text('Algorithm')),
+            underline: const SizedBox.shrink(),
+            isExpanded: true,
+            items: const [
+              DropdownMenuItem(
+                value: SortingType.bubble,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text('Bubble Sort'),
+                ),
+              ),
+              DropdownMenuItem(
+                value: SortingType.selection,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text('Selection Sort'),
+                ),
+              ),
+              DropdownMenuItem(
+                value: SortingType.insert,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text('Insertion Sort'),
+                ),
+              ),
+              DropdownMenuItem(
+                value: SortingType.merge,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text('Merge Sort'),
+                ),
+              ),
+            ],
+            onChanged: sortingForm.isDisableActionForm
+                ? null
+                : (SortingType? value) {
+                    final typeValue = value;
+                    if (typeValue != null) sortingForm.onSetSorting(typeValue);
+                  },
+          );
+        },
+      ),
     );
   }
 }
