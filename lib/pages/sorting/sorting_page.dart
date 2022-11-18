@@ -30,32 +30,37 @@ class SortingPage extends StatefulWidget {
 class _SortingPageState extends State<SortingPage> {
   late final SortingStore _sortingStore;
   late final SortingForm _sortingForm;
+  late final ReactionDisposer reactionTotalItem;
+  late final ReactionDisposer reactionRunning;
+  late final ReactionDisposer reactionThresHoleTime;
 
   @override
   void initState() {
     super.initState();
     final getList = container.resolve<GetListDataVisualizerUseCase>();
     _sortingStore = SortingStore(
-      getList,
-      container.resolve<ReactiveRepositoryImpl>(),
-      container.resolve<BubbleSortUseCase>(),
-      container.resolve<SelectionSortUsecase>(),
-      container.resolve<InsertSortUsecase>(),
-      container.resolve<MergeSortUseCase>()
-    );
+        getList,
+        container.resolve<ReactiveRepositoryImpl>(),
+        container.resolve<BubbleSortUseCase>(),
+        container.resolve<SelectionSortUsecase>(),
+        container.resolve<InsertSortUsecase>(),
+        container.resolve<MergeSortUseCase>());
     _sortingForm = SortingForm();
     _sortingStore.onInitData();
-    reaction((_) => _sortingForm.totalItem,
+    reactionTotalItem = reaction((_) => _sortingForm.totalItem,
         (_) => _sortingStore.setDataItems(_sortingForm.totalItem));
-    reaction((_) => _sortingStore.isRunning,
+    reactionRunning = reaction((_) => _sortingStore.isRunning,
         (value) => _sortingForm.onDisableButton(value));
-    reaction((p0) => _sortingForm.thresHoleTime,
+    reactionThresHoleTime = reaction((p0) => _sortingForm.thresHoleTime,
         (time) => _sortingStore.onSetThresHoleTime(time));
   }
 
   @override
   void dispose() {
     _sortingStore.onClose();
+    reactionTotalItem.call();
+    reactionRunning.call();
+    reactionThresHoleTime.call();
     super.dispose();
   }
 
@@ -69,18 +74,23 @@ class _SortingPageState extends State<SortingPage> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 16.0),
+            padding: const EdgeInsets.only(top: 24.0),
             child: SizedBox(
               width: 100.w,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
-                    AlgoritmButton(),
-                    DropdownSpeedButton(),
-                    DropdownTotalDataWidget(),
-                    GoButton(),
+                    Expanded(child: AlgoritmButton()),
+                    Expanded(
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: DropdownSpeedButton()),
+                    ),
+                    Expanded(child: DropdownTotalDataWidget()),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: GoButton()),
                     ResetButton()
                   ],
                 ),
