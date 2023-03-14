@@ -5,8 +5,13 @@ import 'divide_and_conquer_usecase.dart';
 
 class MergeSortUseCase implements DivideAndConquerUseCase {
   final ReactiveRepository<Visualizer> reactiveRepository;
-  List<int>? _items;
   Map<int, int>? _pointingValue;
+
+  List<int>? _items;
+
+  @override
+  List<int> get values =>
+      _items?.toList(growable: false) ?? List.empty(growable: false);
 
   MergeSortUseCase(this.reactiveRepository);
 
@@ -28,14 +33,16 @@ class MergeSortUseCase implements DivideAndConquerUseCase {
     int leftIndex = 0;
     int rightIndex = 0;
     while (leftIndex < left.length && rightIndex < right.length) {
-      _onSetEvent({left[leftIndex].toDouble(), right[rightIndex].toDouble()});
+      _setEventToStream(
+          {left[leftIndex].toDouble(), right[rightIndex].toDouble()});
       if (left[leftIndex] < right[rightIndex]) {
         items.add(left[leftIndex]);
         leftIndex++;
       } else {
         _onSwitchItem(left[leftIndex], right[rightIndex]);
         items.add(right[rightIndex]);
-        _onSetEvent({left[leftIndex].toDouble(), right[rightIndex].toDouble()});
+        _setEventToStream(
+            {left[leftIndex].toDouble(), right[rightIndex].toDouble()});
         rightIndex++;
       }
     }
@@ -49,26 +56,20 @@ class MergeSortUseCase implements DivideAndConquerUseCase {
     if (isFullSort && listValues != null) {
       for (int index = 0; index < items.length; index++) {
         listValues[index] = items[index];
-        _onSetEvent({items[index].toDouble()});
+        _setEventToStream({items[index].toDouble()});
       }
-      _onSetEvent(null);
+      _setEventToStream(null);
     }
     return items;
   }
 
-  @override
-  List<int> get values =>
-      _items?.toList(growable: false) ?? List.empty(growable: false);
-
-  @override
-  void setDefaultItems(List<int> items) {
-    _items = items;
-    _createNewPointingMap(items);
-  }
-
-  void _onSetEvent(Set<double>? indexEnableColor) {
+  void _setEventToStream(Set<double>? indexEnableColor) {
     reactiveRepository.onSetEvent(
-        Visualizer(items: List.of(values), indexActiveColor: indexEnableColor));
+      Visualizer(
+        items: List<int>.of(values, growable: false),
+        indexActiveColor: indexEnableColor,
+      ),
+    );
   }
 
   void _onSwitchItem(int leftValue, int rightValue) {
@@ -87,11 +88,17 @@ class MergeSortUseCase implements DivideAndConquerUseCase {
     }
   }
 
+  @override
+  void setDefaultItems(List<int> items) {
+    _items = items;
+    _createNewPointingMap(items);
+  }
+
   void _createNewPointingMap(List<int> items) {
     int index = 0;
-    _pointingValue = Map<int, int>.of({});
+    _pointingValue = Map<int, int>.of(const <int, int>{});
     for (final item in items) {
-      _pointingValue!.putIfAbsent(item, () => index);
+      _pointingValue?.putIfAbsent(item, () => index);
       index++;
     }
   }
