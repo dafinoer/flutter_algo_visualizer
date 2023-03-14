@@ -1,11 +1,12 @@
-import 'package:algovisualizer/domain/usecase/sorting_usecase.dart';
-import 'package:algovisualizer/presentation/sorting/sorting_form.dart';
 import 'package:mobx/mobx.dart';
 import 'dart:async';
 
 import '../../data/repository/reactive_repository.dart';
 import '../../domain/entity/visualizer.dart';
+import '../../domain/usecase/brute_force_usecase.dart';
+import '../../domain/usecase/divide_and_conquer_usecase.dart';
 import '../../domain/usecase/get_list_data_visualizer_usecase.dart';
+import 'sorting_form.dart';
 
 part 'sorting_store.g.dart';
 
@@ -14,10 +15,10 @@ class SortingStore = _SortingStore with _$SortingStore;
 abstract class _SortingStore with Store {
   final GetListDataVisualizerUseCase getListDataVisualizer;
   final ReactiveRepository<Visualizer> reactiveRepository;
-  final SortingUseCase bubbleSortUseCase;
-  final SortingUseCase selectionSortUseCase;
-  final SortingUseCase insertionSortUseCase;
-  final DivideAndConquer mergeSortUseCase;
+  final BruteForceUseCase bubbleSortUseCase;
+  final BruteForceUseCase selectionSortUseCase;
+  final BruteForceUseCase insertionSortUseCase;
+  final DivideAndConquerUseCase mergeSortUseCase;
 
   StreamSubscription<Visualizer>? _streamSubscription;
   Set<double>? _indexColorValue;
