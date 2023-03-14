@@ -3,9 +3,9 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:algovisualizer/data/data_source/local_data_source.dart' as _i4;
-import 'package:algovisualizer/domain/entity/algoritm_model.dart' as _i2;
-import 'package:algovisualizer/domain/entity/visualizer.dart' as _i3;
+import 'package:algovisualizer/data/data_source/local_data_source.dart' as _i3;
+import 'package:algovisualizer/domain/entity/algoritm_model.dart' as _i4;
+import 'package:algovisualizer/domain/entity/visualizer.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -19,19 +19,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeAlgorithmModel_0 extends _i1.SmartFake
-    implements _i2.AlgorithmModel {
-  _FakeAlgorithmModel_0(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeVisualizer_1 extends _i1.SmartFake implements _i3.Visualizer {
-  _FakeVisualizer_1(
+class _FakeVisualizer_0 extends _i1.SmartFake implements _i2.Visualizer {
+  _FakeVisualizer_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -43,57 +32,29 @@ class _FakeVisualizer_1 extends _i1.SmartFake implements _i3.Visualizer {
 /// A class which mocks [LocalDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLocalDataSource extends _i1.Mock implements _i4.LocalDataSource {
+class MockLocalDataSource extends _i1.Mock implements _i3.LocalDataSource {
+  MockLocalDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
   @override
-  _i2.AlgorithmModel getDataAlgorithmVisualizer(String? keyName) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getDataAlgorithmVisualizer,
-          [keyName],
-        ),
-        returnValue: _FakeAlgorithmModel_0(
-          this,
-          Invocation.method(
-            #getDataAlgorithmVisualizer,
-            [keyName],
-          ),
-        ),
-        returnValueForMissingStub: _FakeAlgorithmModel_0(
-          this,
-          Invocation.method(
-            #getDataAlgorithmVisualizer,
-            [keyName],
-          ),
-        ),
-      ) as _i2.AlgorithmModel);
+  _i4.AlgorithmModel? getDataAlgorithmVisualizer(String? keyName) =>
+      (super.noSuchMethod(Invocation.method(
+        #getDataAlgorithmVisualizer,
+        [keyName],
+      )) as _i4.AlgorithmModel?);
   @override
-  Map<String, _i2.AlgorithmModel> getAllData() => (super.noSuchMethod(
-        Invocation.method(
-          #getAllData,
-          [],
-        ),
-        returnValue: <String, _i2.AlgorithmModel>{},
-        returnValueForMissingStub: <String, _i2.AlgorithmModel>{},
-      ) as Map<String, _i2.AlgorithmModel>);
-  @override
-  _i3.Visualizer generatedUnSortData(int? maxItem) => (super.noSuchMethod(
+  _i2.Visualizer generatedUnSortData(int? maxItem) => (super.noSuchMethod(
         Invocation.method(
           #generatedUnSortData,
           [maxItem],
         ),
-        returnValue: _FakeVisualizer_1(
+        returnValue: _FakeVisualizer_0(
           this,
           Invocation.method(
             #generatedUnSortData,
             [maxItem],
           ),
         ),
-        returnValueForMissingStub: _FakeVisualizer_1(
-          this,
-          Invocation.method(
-            #generatedUnSortData,
-            [maxItem],
-          ),
-        ),
-      ) as _i3.Visualizer);
+      ) as _i2.Visualizer);
 }
