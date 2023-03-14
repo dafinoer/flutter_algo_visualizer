@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 
 class ReactiveRepositoryImpl implements ReactiveRepository<Visualizer> {
   PublishSubject<Visualizer> _publishSubject;
-  late int _thresHoldTime;
+  int _thresHoldTime = 400;
 
   ReactiveRepositoryImpl(this._publishSubject, this._thresHoldTime);
 
@@ -13,8 +13,23 @@ class ReactiveRepositoryImpl implements ReactiveRepository<Visualizer> {
         ..onSetNewControllerWhenDispose();
 
   @override
-  void dispose() {
-    _publishSubject.close();
+  void onSetNewControllerWhenDispose() {
+    final isClose = _publishSubject.isClosed;
+    if (isClose) {
+      _publishSubject = PublishSubject<Visualizer>(
+        onCancel: () => dispose(),
+      );
+    }
+  }
+
+  @override
+  Stream<Visualizer> watch() => _publishSubject.stream
+      .delay(Duration(milliseconds: _thresHoldTime))
+      .asyncMap((event) => event);
+
+  @override
+  void onSetEvent(Visualizer event) {
+    _publishSubject.add(event);
   }
 
   @override
@@ -23,21 +38,7 @@ class ReactiveRepositoryImpl implements ReactiveRepository<Visualizer> {
   }
 
   @override
-  Stream<Visualizer> watch() async* {
-    yield* _publishSubject.stream.asyncMap((event) async {
-      await Future.delayed(Duration(milliseconds: _thresHoldTime));
-      return event;
-    });
-  }
-
-  @override
-  void onSetEvent(Visualizer event) {
-    _publishSubject.add(event);
-  }
-
-  @override
-  void onSetNewControllerWhenDispose() {
-    final isClose = _publishSubject.isClosed;
-    if (isClose) _publishSubject = PublishSubject<Visualizer>();
+  void dispose() {
+    _publishSubject.close();
   }
 }
