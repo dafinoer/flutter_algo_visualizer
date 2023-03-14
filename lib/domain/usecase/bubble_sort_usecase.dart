@@ -1,8 +1,10 @@
-import 'package:algovisualizer/data/repository/reactive_repository.dart';
-import 'package:algovisualizer/domain/entity/visualizer.dart';
-import 'package:algovisualizer/domain/usecase/sorting_usecase.dart';
 
-class BubbleSortUseCase implements SortingUseCase {
+
+import '../../data/repository/reactive_repository.dart';
+import '../entity/visualizer.dart';
+import 'brute_force_usecase.dart';
+
+class BubbleSortUseCase implements BruteForceUseCase {
   final ReactiveRepository<Visualizer> reactiveRepository;
 
   BubbleSortUseCase(this.reactiveRepository);
