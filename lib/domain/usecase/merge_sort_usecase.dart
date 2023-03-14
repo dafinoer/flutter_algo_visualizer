@@ -1,9 +1,9 @@
 import 'package:algovisualizer/data/repository/reactive_repository.dart';
 
 import '../entity/visualizer.dart';
-import 'sorting_usecase.dart';
+import 'divide_and_conquer_usecase.dart';
 
-class MergeSortUseCase implements DivideAndConquer {
+class MergeSortUseCase implements DivideAndConquerUseCase {
   final ReactiveRepository<Visualizer> reactiveRepository;
   List<int>? _items;
   Map<int, int>? _pointingValue;
