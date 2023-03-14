@@ -1,16 +1,39 @@
 import 'package:mobx/mobx.dart';
 import 'dart:async';
 
+import '../../components/injector.dart';
 import '../../data/repository/reactive_repository.dart';
 import '../../domain/entity/visualizer.dart';
+import '../../domain/repository/reactive_repository_impl.dart';
 import '../../domain/usecase/brute_force_usecase.dart';
+import '../../domain/usecase/bubble_sort_usecase.dart';
 import '../../domain/usecase/divide_and_conquer_usecase.dart';
 import '../../domain/usecase/get_list_data_visualizer_usecase.dart';
+import '../../domain/usecase/insert_sort_usecase.dart';
+import '../../domain/usecase/merge_sort_usecase.dart';
+import '../../domain/usecase/selection_sort_usecase.dart';
 import 'sorting_form.dart';
 
 part 'sorting_store.g.dart';
 
-class SortingStore = _SortingStore with _$SortingStore;
+class SortingStore extends _SortingStore with _$SortingStore {
+  SortingStore(
+      super.getListDataVisualizer,
+      super.reactiveRepository,
+      super.bubbleSortUseCase,
+      super.selectionSortUseCase,
+      super.insertionSortUseCase,
+      super.mergeSortUseCase);
+
+  factory SortingStore.create() => SortingStore(
+        container.resolve<GetListDataVisualizerUseCase>(),
+        container.resolve<ReactiveRepositoryImpl>(),
+        container.resolve<BubbleSortUseCase>(),
+        container.resolve<SelectionSortUsecase>(),
+        container.resolve<InsertSortUsecase>(),
+        container.resolve<MergeSortUseCase>(),
+      );
+}
 
 abstract class _SortingStore with Store {
   final GetListDataVisualizerUseCase getListDataVisualizer;

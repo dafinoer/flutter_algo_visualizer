@@ -4,7 +4,9 @@ part 'sorting_form.g.dart';
 
 enum SortingType { bubble, merge, insert, selection, none }
 
-class SortingForm = _SortingForm with _$SortingForm;
+class SortingForm extends _SortingForm with _$SortingForm {
+  SortingForm();
+}
 
 abstract class _SortingForm with Store {
   @observable

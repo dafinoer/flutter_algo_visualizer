@@ -3,29 +3,24 @@ import 'package:algovisualizer/domain/entity/visualizer.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ReactiveRepositoryImpl implements ReactiveRepository<Visualizer> {
-  PublishSubject<Visualizer> _publishSubject;
+  late PublishSubject<Visualizer> _publishSubject;
   int _thresHoldTime = 400;
 
-  ReactiveRepositoryImpl(this._publishSubject, this._thresHoldTime);
+  ReactiveRepositoryImpl(this._thresHoldTime);
 
   factory ReactiveRepositoryImpl.create({int? time}) =>
-      ReactiveRepositoryImpl(PublishSubject<Visualizer>(), time ?? 400)
-        ..onSetNewControllerWhenDispose();
+      ReactiveRepositoryImpl(time ?? 400)..onSetNewControllerWhenDispose();
 
   @override
   void onSetNewControllerWhenDispose() {
-    final isClose = _publishSubject.isClosed;
-    if (isClose) {
-      _publishSubject = PublishSubject<Visualizer>(
-        onCancel: () => dispose(),
-      );
-    }
+    _publishSubject = PublishSubject<Visualizer>(
+      onCancel: () => dispose(),
+    );
   }
 
   @override
-  Stream<Visualizer> watch() => _publishSubject.stream
-      .delay(Duration(milliseconds: _thresHoldTime))
-      .asyncMap((event) => event);
+  Stream<Visualizer> watch() =>
+      _publishSubject.stream.interval(Duration(milliseconds: _thresHoldTime));
 
   @override
   void onSetEvent(Visualizer event) {

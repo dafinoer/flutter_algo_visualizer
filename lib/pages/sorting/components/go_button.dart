@@ -27,8 +27,8 @@ class GoButton extends StatelessWidget {
                     }
                   },
             child: const Padding(
-              child: Text('Go'),
               padding: EdgeInsets.all(16.0),
+              child: Text('Go'),
             ),
           );
         },
