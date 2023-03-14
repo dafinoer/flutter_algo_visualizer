@@ -10,8 +10,7 @@ class MergeSortUseCase implements DivideAndConquerUseCase {
   List<int>? _items;
 
   @override
-  List<int> get values =>
-      _items?.toList(growable: false) ?? List.empty(growable: false);
+  List<int> get values => _items ?? List.empty(growable: false);
 
   MergeSortUseCase(this.reactiveRepository);
 
