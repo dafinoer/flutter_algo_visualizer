@@ -9,6 +9,12 @@ class AlgorithmModel {
     required this.bigNotationDetail,
   });
 
+  factory AlgorithmModel.fromMap(Map<String, dynamic> map) => AlgorithmModel(
+        title: map['title'] as String,
+        bigNotationDetail: map['time_complex'] as String,
+        desc: map['desc'] as String,
+      );
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
