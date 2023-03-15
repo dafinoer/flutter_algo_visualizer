@@ -1,12 +1,13 @@
 import 'package:algovisualizer/data/repository/reactive_repository.dart';
 import 'package:algovisualizer/domain/entity/visualizer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ReactiveRepositoryImpl implements ReactiveRepository<Visualizer> {
   late PublishSubject<Visualizer> _publishSubject;
-  int _thresHoldTime = 400;
+  late int _thresholdTime;
 
-  ReactiveRepositoryImpl(this._thresHoldTime);
+  ReactiveRepositoryImpl(this._thresholdTime);
 
   factory ReactiveRepositoryImpl.create({int? time}) =>
       ReactiveRepositoryImpl(time ?? 400)..onSetNewControllerWhenDispose();
@@ -14,13 +15,17 @@ class ReactiveRepositoryImpl implements ReactiveRepository<Visualizer> {
   @override
   void onSetNewControllerWhenDispose() {
     _publishSubject = PublishSubject<Visualizer>(
-      onCancel: () => dispose(),
+      onCancel: () => _publishSubject.close(),
     );
   }
 
   @override
-  Stream<Visualizer> watch() =>
-      _publishSubject.stream.interval(Duration(milliseconds: _thresHoldTime));
+  Stream<Visualizer> watch() => _publishSubject.stream.asyncMap(
+        (event) async {
+          await Future.delayed(Duration(milliseconds: _thresholdTime));
+          return event;
+        },
+      );
 
   @override
   void onSetEvent(Visualizer event) {
@@ -29,11 +34,9 @@ class ReactiveRepositoryImpl implements ReactiveRepository<Visualizer> {
 
   @override
   void onSetThresholdTime(int durationTime) {
-    _thresHoldTime = durationTime;
+    _thresholdTime = durationTime;
   }
 
   @override
-  void dispose() {
-    _publishSubject.close();
-  }
+  bool get isClose => _publishSubject.isClosed;
 }
