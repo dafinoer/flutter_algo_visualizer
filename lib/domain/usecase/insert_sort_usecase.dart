@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:algovisualizer/data/repository/reactive_repository.dart';
-import 'package:algovisualizer/domain/entity/visualizer.dart';
-import 'package:algovisualizer/domain/usecase/sorting_usecase.dart';
+import '../../data/repository/reactive_repository.dart';
+import '../entity/visualizer.dart';
+import 'brute_force_usecase.dart';
 
-class InsertSortUsecase implements SortingUseCase {
+class InsertSortUsecase implements BruteForceUseCase {
   final ReactiveRepository<Visualizer> reactiveRepository;
 
   InsertSortUsecase(this.reactiveRepository);

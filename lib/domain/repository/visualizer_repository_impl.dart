@@ -9,7 +9,7 @@ class VisualizerRepositoryImpl implements VisualizerRepository {
   VisualizerRepositoryImpl(this.localDataSource);
 
   @override
-  AlgorithmModel getVisualizerDescription(String keyName) {
+  AlgorithmModel? getVisualizerDescription(String keyName) {
     final algorithm = localDataSource.getDataAlgorithmVisualizer(keyName);
     return algorithm;
   }

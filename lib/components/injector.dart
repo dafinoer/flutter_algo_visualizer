@@ -18,8 +18,8 @@ void onRegisterInjector() {
   //repository_impl
   container.registerInstance<VisualizerRepositoryImpl>(
       VisualizerRepositoryImpl(container.resolve<LocalDataSource>()));
-  container.registerSingleton<ReactiveRepositoryImpl>(
-      (_) => ReactiveRepositoryImpl.create());
+  container.registerInstance<ReactiveRepositoryImpl>(
+      ReactiveRepositoryImpl.create());
 
   // domain = usecase
   container.registerInstance(GetListDataVisualizerUseCase(

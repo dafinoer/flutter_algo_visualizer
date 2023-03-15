@@ -1,8 +1,8 @@
-import 'package:algovisualizer/data/repository/reactive_repository.dart';
-import 'package:algovisualizer/domain/entity/visualizer.dart';
-import 'package:algovisualizer/domain/usecase/sorting_usecase.dart';
+import '../../data/repository/reactive_repository.dart';
+import '../entity/visualizer.dart';
+import 'brute_force_usecase.dart';
 
-class SelectionSortUsecase implements SortingUseCase {
+class SelectionSortUsecase implements BruteForceUseCase {
   final ReactiveRepository<Visualizer> reactiveRepository;
 
   SelectionSortUsecase(this.reactiveRepository);
@@ -17,7 +17,7 @@ class SelectionSortUsecase implements SortingUseCase {
         final colors = {items[indexZ].toDouble(), items[indexY].toDouble()};
         final indexColors = Set.of(colors);
         final int valueIndexZ = items[indexZ];
-        final newListItems = List.of(items,growable: false);
+        final newListItems = List.of(items, growable: false);
         if (valueIndexZ < value) {
           value = valueIndexZ;
           indexSmall = indexZ;

@@ -1,8 +1,8 @@
-import 'package:algovisualizer/data/repository/reactive_repository.dart';
-import 'package:algovisualizer/domain/entity/visualizer.dart';
-import 'package:algovisualizer/domain/usecase/sorting_usecase.dart';
+import '../../data/repository/reactive_repository.dart';
+import '../entity/visualizer.dart';
+import 'brute_force_usecase.dart';
 
-class BubbleSortUseCase implements SortingUseCase {
+class BubbleSortUseCase implements BruteForceUseCase {
   final ReactiveRepository<Visualizer> reactiveRepository;
 
   BubbleSortUseCase(this.reactiveRepository);
@@ -14,12 +14,12 @@ class BubbleSortUseCase implements SortingUseCase {
       bool isHaveSwap = false;
       for (int index = 0; index < items.length - 1; index++) {
         if (items[index] > items[index + 1]) {
-          int temp = items[index];
+          final int temp = items[index];
           items[index] = items[index + 1];
           items[index + 1] = temp;
           isHaveSwap = true;
           reactiveRepository.onSetEvent(Visualizer(
-            items: List.of(items),
+            items: List<int>.of(items, growable: false),
             indexActiveColor: {items[index + 1].toDouble()},
           ));
         }

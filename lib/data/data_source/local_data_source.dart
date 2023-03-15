@@ -1,27 +1,18 @@
 import 'dart:math';
 
+import '../../components/algo_desc.dart';
 import '../../domain/entity/algoritm_model.dart';
 import '../../domain/entity/visualizer.dart';
 
 class LocalDataSource {
   const LocalDataSource();
 
-  AlgorithmModel getDataAlgorithmVisualizer(String keyName) {
-    final algoritmsData = getAllData();
-    final algoritm = getAllData()[keyName];
-    if (!algoritmsData.containsKey(keyName) || algoritm == null) {
-      throw ArgumentError('key $keyName data not found');
-    }
-    return algoritm;
-  }
+  AlgorithmModel? getDataAlgorithmVisualizer(String keyName) {
+    const Map<String, dynamic> algoritmsData = algoDesc;
+    final algoritm = algoritmsData[keyName];
+    if (algoritm == null) return null;
 
-  Map<String, AlgorithmModel> getAllData() {
-    return const <String, AlgorithmModel>{
-      'binary-search': AlgorithmModel(
-        title: 'Binary Search Tree',
-        bigNotationDetail: 'log(n log m)',
-      ),
-    };
+    return algoritm;
   }
 
   Visualizer generatedUnSortData(int maxItem) {

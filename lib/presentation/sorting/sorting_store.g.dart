@@ -16,13 +16,36 @@ mixin _$SortingStore on _SortingStore, Store {
           Computed<List<double>>(() => super.listVisualizer,
               name: '_SortingStore.listVisualizer'))
       .value;
-  Computed<bool>? _$isRunningComputed;
+  Computed<bool>? _$isProcessSortingComputed;
 
   @override
-  bool get isRunning =>
-      (_$isRunningComputed ??= Computed<bool>(() => super.isRunning,
-              name: '_SortingStore.isRunning'))
-          .value;
+  bool get isProcessSorting => (_$isProcessSortingComputed ??= Computed<bool>(
+          () => super.isProcessSorting,
+          name: '_SortingStore.isProcessSorting'))
+      .value;
+  Computed<Set<double>?>? _$indexActiveColorComputed;
+
+  @override
+  Set<double>? get indexActiveColor => (_$indexActiveColorComputed ??=
+          Computed<Set<double>?>(() => super.indexActiveColor,
+              name: '_SortingStore.indexActiveColor'))
+      .value;
+
+  late final _$_indexColorValueAtom =
+      Atom(name: '_SortingStore._indexColorValue', context: context);
+
+  @override
+  Set<double>? get _indexColorValue {
+    _$_indexColorValueAtom.reportRead();
+    return super._indexColorValue;
+  }
+
+  @override
+  set _indexColorValue(Set<double>? value) {
+    _$_indexColorValueAtom.reportWrite(value, super._indexColorValue, () {
+      super._indexColorValue = value;
+    });
+  }
 
   late final _$_visualDataAtom =
       Atom(name: '_SortingStore._visualData', context: context);
@@ -37,22 +60,6 @@ mixin _$SortingStore on _SortingStore, Store {
   set _visualData(List<double> value) {
     _$_visualDataAtom.reportWrite(value, super._visualData, () {
       super._visualData = value;
-    });
-  }
-
-  late final _$_isRunningAtom =
-      Atom(name: '_SortingStore._isRunning', context: context);
-
-  @override
-  bool get _isRunning {
-    _$_isRunningAtom.reportRead();
-    return super._isRunning;
-  }
-
-  @override
-  set _isRunning(bool value) {
-    _$_isRunningAtom.reportWrite(value, super._isRunning, () {
-      super._isRunning = value;
     });
   }
 
@@ -74,7 +81,8 @@ mixin _$SortingStore on _SortingStore, Store {
   String toString() {
     return '''
 listVisualizer: ${listVisualizer},
-isRunning: ${isRunning}
+isProcessSorting: ${isProcessSorting},
+indexActiveColor: ${indexActiveColor}
     ''';
   }
 }

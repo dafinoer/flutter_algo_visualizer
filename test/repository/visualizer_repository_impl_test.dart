@@ -10,7 +10,7 @@ import 'visualizer_repository_impl_test.mocks.dart';
 
 @GenerateNiceMocks(
   [
-    MockSpec<LocalDataSource>(),
+    MockSpec<LocalDataSource>(onMissingStub: OnMissingStub.throwException),
   ],
 )
 void main() {
@@ -31,11 +31,26 @@ void main() {
 
     test('Get Visualizer Desc', () {
       when(mockLocalDataSource.getDataAlgorithmVisualizer(any)).thenReturn(
-          const AlgorithmModel(title: 'Halo', bigNotationDetail: 'Lorem'));
+        const AlgorithmModel(title: 'Halo', bigNotationDetail: 'Lorem'),
+      );
       final result = visualizerRepositoryImpl.getVisualizerDescription('hehe');
-      expect(result.title, 'Halo');
-      expect(result.bigNotationDetail, 'Lorem');
+      expect(result?.title, 'Halo');
+      expect(result?.bigNotationDetail, 'Lorem');
     });
+
+    test(
+      'Visualizer Null',
+      () {
+        when(mockLocalDataSource
+                .getDataAlgorithmVisualizer(argThat(equals('binary'))))
+            .thenReturn(null);
+        final result =
+            visualizerRepositoryImpl.getVisualizerDescription('binary');
+        expect(result, null);
+        verify(mockLocalDataSource.getDataAlgorithmVisualizer('binary'))
+            .called(1);
+      },
+    );
 
     tearDown(() {
       resetMockitoState();

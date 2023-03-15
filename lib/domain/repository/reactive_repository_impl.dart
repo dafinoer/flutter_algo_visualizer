@@ -1,34 +1,31 @@
 import 'package:algovisualizer/data/repository/reactive_repository.dart';
 import 'package:algovisualizer/domain/entity/visualizer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ReactiveRepositoryImpl implements ReactiveRepository<Visualizer> {
-  PublishSubject<Visualizer> _publishSubject;
-  late int _thresHoldTime;
+  late PublishSubject<Visualizer> _publishSubject;
+  late int _thresholdTime;
 
-  ReactiveRepositoryImpl(this._publishSubject, this._thresHoldTime);
+  ReactiveRepositoryImpl(this._thresholdTime);
 
   factory ReactiveRepositoryImpl.create({int? time}) =>
-      ReactiveRepositoryImpl(PublishSubject<Visualizer>(), time ?? 400)
-        ..onSetNewControllerWhenDispose();
+      ReactiveRepositoryImpl(time ?? 400)..onSetNewControllerWhenDispose();
 
   @override
-  void dispose() {
-    _publishSubject.close();
+  void onSetNewControllerWhenDispose() {
+    _publishSubject = PublishSubject<Visualizer>(
+      onCancel: () => _publishSubject.close(),
+    );
   }
 
   @override
-  void onSetThresholdTime(int durationTime) {
-    _thresHoldTime = durationTime;
-  }
-
-  @override
-  Stream<Visualizer> watch() async* {
-    yield* _publishSubject.stream.asyncMap((event) async {
-      await Future.delayed(Duration(milliseconds: _thresHoldTime));
-      return event;
-    });
-  }
+  Stream<Visualizer> watch() => _publishSubject.stream.asyncMap(
+        (event) async {
+          await Future.delayed(Duration(milliseconds: _thresholdTime));
+          return event;
+        },
+      );
 
   @override
   void onSetEvent(Visualizer event) {
@@ -36,8 +33,10 @@ class ReactiveRepositoryImpl implements ReactiveRepository<Visualizer> {
   }
 
   @override
-  void onSetNewControllerWhenDispose() {
-    final isClose = _publishSubject.isClosed;
-    if (isClose) _publishSubject = PublishSubject<Visualizer>();
+  void onSetThresholdTime(int durationTime) {
+    _thresholdTime = durationTime;
   }
+
+  @override
+  bool get isClose => _publishSubject.isClosed;
 }

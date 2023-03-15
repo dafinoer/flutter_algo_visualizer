@@ -1,7 +1,7 @@
 abstract class ReactiveRepository<T> {
   Stream<T> watch();
 
-  void dispose();
+  bool get isClose;
 
   void onSetThresholdTime(int durationTime);
 
