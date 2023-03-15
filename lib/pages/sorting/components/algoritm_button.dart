@@ -54,12 +54,10 @@ class AlgoritmButton extends StatelessWidget {
                 ),
               ),
             ],
-            onChanged: sortingForm.isDisableActionForm
-                ? null
-                : (SortingType? value) {
-                    final typeValue = value;
-                    if (typeValue != null) sortingForm.onSetSorting(typeValue);
-                  },
+            onChanged: (SortingType? value) {
+              final typeValue = value;
+              if (typeValue != null) sortingForm.onSetSorting(typeValue);
+            },
           );
         },
       ),
