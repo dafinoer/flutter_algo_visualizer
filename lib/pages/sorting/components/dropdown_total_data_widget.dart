@@ -6,9 +6,15 @@ import 'package:provider/provider.dart';
 class DropdownTotalDataWidget extends StatelessWidget {
   const DropdownTotalDataWidget({Key? key}) : super(key: key);
 
+  void onChoiceAmountOfData(BuildContext context, int? lotsOfItem) {
+    final amountData = lotsOfItem;
+    if (amountData != null) {
+      context.read<SortingForm>().setTotalItem(amountData);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final sortingForm = Provider.of<SortingForm>(context, listen: false);
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.0),
@@ -17,51 +23,53 @@ class DropdownTotalDataWidget extends StatelessWidget {
         builder: (context) {
           return DropdownButton(
             borderRadius: BorderRadius.circular(12.0),
-            value: sortingForm.totalItem,
+            value: context.read<SortingForm>().totalItem,
+            underline: const SizedBox.shrink(),
             isExpanded: true,
             hint: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text('How many data'),
+              child: Text('Amount Data'),
             ),
-            underline: const SizedBox.shrink(),
             items: const [
               DropdownMenuItem(
-                  value: 10,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text('10'),
-                  )),
+                value: 10,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text('10'),
+                ),
+              ),
               DropdownMenuItem(
-                  value: 20,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text('20'),
-                  )),
+                value: 20,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text('20'),
+                ),
+              ),
               DropdownMenuItem(
-                  value: 30,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text('30'),
-                  )),
+                value: 30,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text('30'),
+                ),
+              ),
               DropdownMenuItem(
-                  value: 40,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text('40'),
-                  )),
+                value: 40,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text('40'),
+                ),
+              ),
               DropdownMenuItem(
-                  value: 50,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text('50'),
-                  )),
+                value: 50,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text('50'),
+                ),
+              ),
             ],
-            onChanged: sortingForm.isDisableActionForm
+            onChanged: context.read<SortingForm>().isRunning
                 ? null
-                : (int? value) {
-                    final itemValue = value;
-                    if (itemValue != null) sortingForm.setTotalItem(itemValue);
-                  },
+                : (int? value) => onChoiceAmountOfData(context, value),
           );
         },
       ),
