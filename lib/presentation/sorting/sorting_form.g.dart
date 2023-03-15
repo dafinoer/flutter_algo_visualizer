@@ -9,19 +9,6 @@ part of 'sorting_form.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$SortingForm on _SortingForm, Store {
-  Computed<int>? _$totalItemComputed;
-
-  @override
-  int get totalItem => (_$totalItemComputed ??=
-          Computed<int>(() => super.totalItem, name: '_SortingForm.totalItem'))
-      .value;
-  Computed<int>? _$thresHoleTimeComputed;
-
-  @override
-  int get thresHoleTime =>
-      (_$thresHoleTimeComputed ??= Computed<int>(() => super.thresHoleTime,
-              name: '_SortingForm.thresHoleTime'))
-          .value;
   Computed<SortingType?>? _$sortingTypeComputed;
 
   @override
@@ -29,6 +16,25 @@ mixin _$SortingForm on _SortingForm, Store {
       (_$sortingTypeComputed ??= Computed<SortingType?>(() => super.sortingType,
               name: '_SortingForm.sortingType'))
           .value;
+  Computed<int?>? _$thresholdTimeComputed;
+
+  @override
+  int? get thresholdTime =>
+      (_$thresholdTimeComputed ??= Computed<int?>(() => super.thresholdTime,
+              name: '_SortingForm.thresholdTime'))
+          .value;
+  Computed<int?>? _$totalItemComputed;
+
+  @override
+  int? get totalItem => (_$totalItemComputed ??=
+          Computed<int?>(() => super.totalItem, name: '_SortingForm.totalItem'))
+      .value;
+  Computed<bool>? _$isRunningComputed;
+
+  @override
+  bool get isRunning => (_$isRunningComputed ??=
+          Computed<bool>(() => super.isRunning, name: '_SortingForm.isRunning'))
+      .value;
   Computed<bool>? _$isDisableActionFormComputed;
 
   @override
@@ -53,51 +59,51 @@ mixin _$SortingForm on _SortingForm, Store {
     });
   }
 
-  late final _$_thresHoleTimeAtom =
-      Atom(name: '_SortingForm._thresHoleTime', context: context);
+  late final _$_thresholdTimeAtom =
+      Atom(name: '_SortingForm._thresholdTime', context: context);
 
   @override
-  int get _thresHoleTime {
-    _$_thresHoleTimeAtom.reportRead();
-    return super._thresHoleTime;
+  int? get _thresholdTime {
+    _$_thresholdTimeAtom.reportRead();
+    return super._thresholdTime;
   }
 
   @override
-  set _thresHoleTime(int value) {
-    _$_thresHoleTimeAtom.reportWrite(value, super._thresHoleTime, () {
-      super._thresHoleTime = value;
+  set _thresholdTime(int? value) {
+    _$_thresholdTimeAtom.reportWrite(value, super._thresholdTime, () {
+      super._thresholdTime = value;
     });
   }
 
-  late final _$_totalMaxItemAtom =
-      Atom(name: '_SortingForm._totalMaxItem', context: context);
+  late final _$_totalItemAtom =
+      Atom(name: '_SortingForm._totalItem', context: context);
 
   @override
-  int get _totalMaxItem {
-    _$_totalMaxItemAtom.reportRead();
-    return super._totalMaxItem;
+  int? get _totalItem {
+    _$_totalItemAtom.reportRead();
+    return super._totalItem;
   }
 
   @override
-  set _totalMaxItem(int value) {
-    _$_totalMaxItemAtom.reportWrite(value, super._totalMaxItem, () {
-      super._totalMaxItem = value;
+  set _totalItem(int? value) {
+    _$_totalItemAtom.reportWrite(value, super._totalItem, () {
+      super._totalItem = value;
     });
   }
 
-  late final _$_isDisableButtonAtom =
-      Atom(name: '_SortingForm._isDisableButton', context: context);
+  late final _$_isRunningAtom =
+      Atom(name: '_SortingForm._isRunning', context: context);
 
   @override
-  bool get _isDisableButton {
-    _$_isDisableButtonAtom.reportRead();
-    return super._isDisableButton;
+  bool get _isRunning {
+    _$_isRunningAtom.reportRead();
+    return super._isRunning;
   }
 
   @override
-  set _isDisableButton(bool value) {
-    _$_isDisableButtonAtom.reportWrite(value, super._isDisableButton, () {
-      super._isDisableButton = value;
+  set _isRunning(bool value) {
+    _$_isRunningAtom.reportWrite(value, super._isRunning, () {
+      super._isRunning = value;
     });
   }
 
@@ -116,11 +122,11 @@ mixin _$SortingForm on _SortingForm, Store {
   }
 
   @override
-  void setThresHoleTime(int time) {
+  void setThresholdTime(int time) {
     final _$actionInfo = _$_SortingFormActionController.startAction(
-        name: '_SortingForm.setThresHoleTime');
+        name: '_SortingForm.setThresholdTime');
     try {
-      return super.setThresHoleTime(time);
+      return super.setThresholdTime(time);
     } finally {
       _$_SortingFormActionController.endAction(_$actionInfo);
     }
@@ -138,11 +144,22 @@ mixin _$SortingForm on _SortingForm, Store {
   }
 
   @override
-  void onDisableButton(bool isDisable) {
-    final _$actionInfo = _$_SortingFormActionController.startAction(
-        name: '_SortingForm.onDisableButton');
+  void stop() {
+    final _$actionInfo =
+        _$_SortingFormActionController.startAction(name: '_SortingForm.stop');
     try {
-      return super.onDisableButton(isDisable);
+      return super.stop();
+    } finally {
+      _$_SortingFormActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void run() {
+    final _$actionInfo =
+        _$_SortingFormActionController.startAction(name: '_SortingForm.run');
+    try {
+      return super.run();
     } finally {
       _$_SortingFormActionController.endAction(_$actionInfo);
     }
@@ -151,9 +168,10 @@ mixin _$SortingForm on _SortingForm, Store {
   @override
   String toString() {
     return '''
-totalItem: ${totalItem},
-thresHoleTime: ${thresHoleTime},
 sortingType: ${sortingType},
+thresholdTime: ${thresholdTime},
+totalItem: ${totalItem},
+isRunning: ${isRunning},
 isDisableActionForm: ${isDisableActionForm}
     ''';
   }

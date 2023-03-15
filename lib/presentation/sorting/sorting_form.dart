@@ -12,35 +12,42 @@ abstract class _SortingForm with Store {
   @observable
   SortingType? _sortingType;
 
-  @observable
-  int _thresHoleTime = 300;
-
-  @observable
-  int _totalMaxItem = 10;
-
-  @observable
-  bool _isDisableButton = false;
-
-  @computed
-  int get totalItem => _totalMaxItem;
-
-  @computed
-  int get thresHoleTime => _thresHoleTime;
-
   @computed
   SortingType? get sortingType => _sortingType;
 
+  @observable
+  int? _thresholdTime;
+
   @computed
-  bool get isDisableActionForm => _isDisableButton;
+  int? get thresholdTime => _thresholdTime;
+
+  @observable
+  int? _totalItem;
+
+  @computed
+  int? get totalItem => _totalItem;
+
+  @observable
+  bool _isRunning = false;
+
+  @computed
+  bool get isRunning => _isRunning;
+
+  @computed
+  bool get isDisableActionForm =>
+      thresholdTime == null ||
+      totalItem == null ||
+      sortingType == null ||
+      isRunning;
 
   @action
   void setTotalItem(int totalItem) {
-    _totalMaxItem = totalItem;
+    _totalItem = totalItem;
   }
 
   @action
-  void setThresHoleTime(int time) {
-    _thresHoleTime = time;
+  void setThresholdTime(int time) {
+    _thresholdTime = time;
   }
 
   @action
@@ -49,7 +56,12 @@ abstract class _SortingForm with Store {
   }
 
   @action
-  void onDisableButton(bool isDisable) {
-    _isDisableButton = isDisable;
+  void stop() {
+    _isRunning = false;
+  }
+
+  @action
+  void run() {
+    _isRunning = true;
   }
 }
