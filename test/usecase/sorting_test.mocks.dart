@@ -26,6 +26,12 @@ import 'package:mockito/mockito.dart' as _i1;
 class MockReactiveRepository extends _i1.Mock
     implements _i2.ReactiveRepository<_i3.Visualizer> {
   @override
+  bool get isClose => (super.noSuchMethod(
+        Invocation.getter(#isClose),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+  @override
   _i4.Stream<_i3.Visualizer> watch() => (super.noSuchMethod(
         Invocation.method(
           #watch,
@@ -34,14 +40,6 @@ class MockReactiveRepository extends _i1.Mock
         returnValue: _i4.Stream<_i3.Visualizer>.empty(),
         returnValueForMissingStub: _i4.Stream<_i3.Visualizer>.empty(),
       ) as _i4.Stream<_i3.Visualizer>);
-  @override
-  void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
   @override
   void onSetThresholdTime(int? durationTime) => super.noSuchMethod(
         Invocation.method(
