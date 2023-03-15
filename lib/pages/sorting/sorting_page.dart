@@ -1,16 +1,16 @@
-import 'package:algovisualizer/pages/sorting/components/go_button.dart';
-import 'package:algovisualizer/pages/sorting/components/reset_button.dart';
-import 'package:algovisualizer/presentation/sorting/sorting_form.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../presentation/sorting/sorting_form.dart';
 import '../../presentation/sorting/sorting_store.dart';
 import '../../widgets/chart_widget.dart';
 import 'components/algoritm_button.dart';
 import 'components/dropdown_speed_button.dart';
 import 'components/dropdown_total_data_widget.dart';
+import 'components/go_button.dart';
+import 'components/reset_button.dart';
 
 class SortingPage extends StatefulWidget {
   const SortingPage({super.key});
@@ -23,28 +23,67 @@ class _SortingPageState extends State<SortingPage> {
   late final SortingStore _sortingStore;
   late final SortingForm _sortingForm;
   late final ReactionDisposer reactionTotalItem;
-  late final ReactionDisposer reactionRunning;
-  late final ReactionDisposer reactionThresHoleTime;
+  late final ReactionDisposer reactionThresholdTime;
+  late final ReactionDisposer reactionSortingType;
+  late final ReactionDisposer reactionRunningSorting;
 
   @override
   void initState() {
     super.initState();
-    _sortingStore = SortingStore.create()..onInitData();
+    _sortingStore = SortingStore.create();
     _sortingForm = SortingForm();
-    reactionTotalItem = reaction((_) => _sortingForm.totalItem,
-        (_) => _sortingStore.setDataItems(_sortingForm.totalItem));
-    reactionRunning = reaction((_) => _sortingStore.isRunning,
-        (value) => _sortingForm.onDisableButton(value));
-    reactionThresHoleTime = reaction((p0) => _sortingForm.thresHoleTime,
-        (time) => _sortingStore.onSetThresHoleTime(time));
+    onReactionRunning();
+    onReactionItems();
+    onReactionThresholdTime();
+    onReactionChangeSorting();
+  }
+
+  void onReactionRunning() {
+    reactionRunningSorting =
+        reaction((_) => _sortingStore.isProcessSorting, (isSorting) {
+      if (isSorting) {
+        _sortingForm.run();
+      } else {
+        _sortingForm.stop();
+      }
+    });
+  }
+
+  void onReactionItems() {
+    reactionTotalItem = reaction((_) => _sortingForm.totalItem, (value) {
+      if (value != null) _sortingStore.setDataItems(value);
+    });
+  }
+
+  void onReactionThresholdTime() {
+    reactionThresholdTime = reaction((_) => _sortingForm.thresholdTime, (time) {
+      if (time != null) _sortingStore.setThresholdTime(time);
+    });
+  }
+
+  void onReactionChangeSorting() {
+    reactionSortingType = reaction(
+      (_) => _sortingForm.sortingType,
+      (sortingType) {
+        if (sortingType != null) {
+          _sortingStore.onCloseStream()?.then(
+            (_) {
+              _sortingStore.onListenStream();
+              final totalItem = _sortingForm.totalItem;
+              if (totalItem != null) _sortingStore.onResetStore(totalItem);
+            },
+          );
+        }
+      },
+    );
   }
 
   @override
   void dispose() {
-    _sortingStore.onClose();
     reactionTotalItem.call();
-    reactionRunning.call();
-    reactionThresHoleTime.call();
+    reactionThresholdTime.call();
+    reactionSortingType.call();
+    reactionRunningSorting.call();
     super.dispose();
   }
 
